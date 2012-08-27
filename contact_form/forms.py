@@ -257,7 +257,12 @@ class ContactForm(ContactBaseForm):
     body = forms.CharField(widget=forms.Textarea(attrs=attrs_dict),
                               label=_('Your message'),
                               required=True)
-
+    
+    def get_message_dict(self):
+        message_dict = super(ContactForm, self).get_message_dict()
+        message_dict['from_email'] = self.cleaned_data['email']
+        return message_dict
+        
 
 class AkismetContactForm(ContactForm):
     """
